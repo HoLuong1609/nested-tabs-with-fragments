@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">VPBS Customer</string>
+    <string name="portfolio">Danh mục</string>
+    <string name="pending_orders">Sổ lệnh</string>
+    <string name="extensions">Tiện ích</string>
+    <string name="markets">Thị trường</string>
+    <string name="assets_category">Danh mục tài sản</string>
+    <string name="trading_history">Lịch sử lệnh</string>
+    <string name="cash_statement">Sao kê tiền</string>
+    <string name="stock_statement">Sao kê CK</string>
+    <string name="stocks">Stocks</string>
+    <string name="bonds">Bonds</string>
+    <string name="deposit">Deposit</string>
+    <string name="more">More</string>
+    <string name="assets">Assets</string>
+
+</resources>
