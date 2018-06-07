@@ -1,6 +1,7 @@
 package vn.com.ifs.vpbscustomer.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,20 +24,20 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.e(this.getClass().getSimpleName(), "onCreate");
+        Logger.i(getSimpleName(), "onCreate");
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Logger.e(this.getClass().getSimpleName(), "onCreateView");
+        Logger.i(getSimpleName(), "onCreateView");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Logger.e(this.getClass().getSimpleName(), "onViewCreated");
+        Logger.i(getSimpleName(), "onViewCreated");
         mSwipeRefreshLayout = view.findViewById(R.id.swipeContainer);
         if (mSwipeRefreshLayout != null)
             mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -45,43 +46,43 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Logger.e(this.getClass().getSimpleName(), "onActivityCreated");
+        Logger.i(getSimpleName(), "onActivityCreated");
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Logger.e(this.getClass().getSimpleName(), "setUserVisibleHint - " + isVisibleToUser);
+        Logger.i(getSimpleName(), "setUserVisibleHint - " + isVisibleToUser);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Logger.e(this.getClass().getSimpleName(), "onStart");
+        Logger.i(getSimpleName(), "onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Logger.e(this.getClass().getSimpleName(), "onResume");
+        Logger.i(getSimpleName(), "onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Logger.e(this.getClass().getSimpleName(), "onPause");
+        Logger.i(getSimpleName(), "onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Logger.e(this.getClass().getSimpleName(), "onStop");
+        Logger.i(getSimpleName(), "onStop");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Logger.e(this.getClass().getSimpleName(), "onDestroyView");
+        Logger.i(getSimpleName(), "onDestroyView");
     }
 
     @Override
@@ -92,19 +93,19 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void onDetach() {
         super.onDetach();
-        Logger.e(this.getClass().getSimpleName(), "onDetach");
+        Logger.i(getSimpleName(), "onDetach");
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Logger.e(this.getClass().getSimpleName(), "onViewStateRestored");
+        Logger.i(getSimpleName(), "onViewStateRestored");
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Logger.e(this.getClass().getSimpleName(), "onSaveInstanceState");
+        Logger.i(getSimpleName(), "onSaveInstanceState");
     }
 
     public void hideSwipeProgress() {
@@ -114,8 +115,15 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-
+        new Handler().postDelayed(this::hideSwipeProgress, 1000);
     }
 
-    public void callApi() {}
+    protected String getSimpleName() {
+        String simpleName = this.getClass().getSimpleName();
+        if (simpleName.equals("ChildFragment")) {
+            ChildFragment fragment = (ChildFragment) this;
+            simpleName = fragment.getName();
+        }
+        return simpleName;
+    }
 }

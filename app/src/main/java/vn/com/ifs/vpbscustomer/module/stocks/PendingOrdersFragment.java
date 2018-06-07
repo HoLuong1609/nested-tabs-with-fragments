@@ -1,61 +1,98 @@
 package vn.com.ifs.vpbscustomer.module.stocks;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import vn.com.ifs.vpbscustomer.R;
+import vn.com.ifs.vpbscustomer.adapter.PendingOrdersPagerAdapter;
+import vn.com.ifs.vpbscustomer.adapter.PortfolioPagerAdapter;
 import vn.com.ifs.vpbscustomer.fragment.BaseViewStubFragment;
-import vn.com.ifs.vpbscustomer.module.Presenter;
 
-public class PendingOrdersFragment extends BaseViewStubFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import static android.graphics.Typeface.BOLD;
+import static android.graphics.Typeface.NORMAL;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class PendingOrdersFragment extends BaseViewStubFragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
-    public PendingOrdersFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AssetsCategoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PendingOrdersFragment newInstance(String param1, String param2) {
-        PendingOrdersFragment fragment = new PendingOrdersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
+    PendingOrdersPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreateViewAfterViewStubInflated(View inflatedView, Bundle savedInstanceState, boolean hasInflated) {
-        if (!hasInflated)
-            new Presenter(this).loadData();
+
+        ButterKnife.bind(this, inflatedView);
+        pagerAdapter = new PendingOrdersPagerAdapter(getChildFragmentManager());
+
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(this);
+        // Give the TabLayout the ViewPager
+        tabLayout.setupWithViewPager(viewPager);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null) {
+                View tabView = LayoutInflater.from(getContext()).inflate(R.layout.top_tab_indicator, tabLayout, false);
+                TextView tvTabTitle = tabView.findViewById(R.id.tvTabTitle);
+                tvTabTitle.setText(pagerAdapter.getTabTitleRes(i));
+                tab.setCustomView(tabView);
+                if (i == 0)
+                    tvTabTitle.setTypeface(null, BOLD);
+                else
+                    tvTabTitle.setTypeface(null, NORMAL);
+            }
+        }
+
+        tabLayout.addOnTabSelectedListener(this);
     }
 
     @Override
     protected int getViewStubLayoutResource() {
-        return R.layout.fragment_pending_orders;
+        return R.layout.fragment_portfolio;
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        View tabView = tab.getCustomView();
+        if (tabView != null) {
+            TextView tvTabTitle = tabView.findViewById(R.id.tvTabTitle);
+            tvTabTitle.setTypeface(null, BOLD);
+        }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+        View tabView = tab.getCustomView();
+        if (tabView != null) {
+            TextView tvTabTitle = tabView.findViewById(R.id.tvTabTitle);
+            tvTabTitle.setTypeface(null, NORMAL);
+        }
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        pagerAdapter.onFragmentSelected(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

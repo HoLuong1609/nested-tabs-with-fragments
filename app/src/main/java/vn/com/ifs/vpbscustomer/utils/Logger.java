@@ -19,4 +19,9 @@ public class Logger {
         if (IS_DEV_MODE)
             Log.d(tag, message);
     }
+
+    public static void i(String tag, String message) {
+        if (IS_DEV_MODE)
+            Log.i(tag, message);
+    }
 }

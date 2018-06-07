@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 
 import vn.com.ifs.vpbscustomer.R;
+import vn.com.ifs.vpbscustomer.utils.Logger;
 
 public abstract class BaseViewStubFragment extends BaseFragment {
 
@@ -28,6 +29,7 @@ public abstract class BaseViewStubFragment extends BaseFragment {
         onCreateViewAfterViewStubInflated(inflatedView, mSavedInstanceState, mHasInflated);
         afterViewStubInflated(view);
 
+        Logger.i(getSimpleName(), "onCreateView");
         return view;
     }
 
