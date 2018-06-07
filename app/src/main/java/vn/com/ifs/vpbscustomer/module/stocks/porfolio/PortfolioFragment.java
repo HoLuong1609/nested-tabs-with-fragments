@@ -1,20 +1,17 @@
 package vn.com.ifs.vpbscustomer.module.stocks.porfolio;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vn.com.ifs.vpbscustomer.R;
 import vn.com.ifs.vpbscustomer.adapter.PortfolioPagerAdapter;
-import vn.com.ifs.vpbscustomer.fragment.BaseFragment;
+import vn.com.ifs.vpbscustomer.fragment.BaseViewStubFragment;
 
 import static android.graphics.Typeface.BOLD;
 import static android.graphics.Typeface.NORMAL;
@@ -23,7 +20,7 @@ import static android.graphics.Typeface.NORMAL;
  * Created by IFS on 3/15/2018.
  */
 
-public class PortfolioFragment extends BaseFragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
+public class PortfolioFragment extends BaseViewStubFragment implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -31,20 +28,11 @@ public class PortfolioFragment extends BaseFragment implements TabLayout.OnTabSe
     TabLayout tabLayout;
     PortfolioPagerAdapter pagerAdapter;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_portfolio, container, false);
+    protected void onCreateViewAfterViewStubInflated(View inflatedView, Bundle savedInstanceState, boolean hasInflated) {
 
-        ButterKnife.bind(this, view);
+        ButterKnife.bind(this, inflatedView);
         pagerAdapter = new PortfolioPagerAdapter(getChildFragmentManager());
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
@@ -66,6 +54,11 @@ public class PortfolioFragment extends BaseFragment implements TabLayout.OnTabSe
         }
 
         tabLayout.addOnTabSelectedListener(this);
+    }
+
+    @Override
+    protected int getViewStubLayoutResource() {
+        return R.layout.fragment_portfolio;
     }
 
     @Override

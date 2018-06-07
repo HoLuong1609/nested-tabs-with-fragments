@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.com.ifs.vpbscustomer.R;
-import vn.com.ifs.vpbscustomer.fragment.BaseFragment;
+import vn.com.ifs.vpbscustomer.fragment.BaseViewStubFragment;
 
-public class AssetsFragment extends BaseFragment {
+public class AssetsFragment extends BaseViewStubFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,9 +51,13 @@ public class AssetsFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_assets, container, false);
+    protected void onCreateViewAfterViewStubInflated(View inflatedView, Bundle savedInstanceState, boolean hasInflated) {
+        if (!hasInflated)
+            new Presenter(this).loadData();
+    }
+
+    @Override
+    protected int getViewStubLayoutResource() {
+        return R.layout.fragment_assets;
     }
 }

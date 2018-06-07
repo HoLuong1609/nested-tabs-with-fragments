@@ -51,7 +51,7 @@ public abstract class BaseFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Logger.e(this.getClass().getSimpleName(), "setUserVisibleHint - " + isVisibleToUser + ", getActivity: " + getActivity());
+        Logger.e(this.getClass().getSimpleName(), "setUserVisibleHint - " + isVisibleToUser);
     }
 
     @Override

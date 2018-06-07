@@ -5,7 +5,6 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +18,9 @@ import vn.com.ifs.vpbscustomer.module.AssetsFragment;
 import vn.com.ifs.vpbscustomer.module.BondsFragment;
 import vn.com.ifs.vpbscustomer.module.DepositFragment;
 import vn.com.ifs.vpbscustomer.module.MoreFragment;
-import vn.com.ifs.vpbscustomer.module.stocks.ExtensionsFragment;
-import vn.com.ifs.vpbscustomer.module.stocks.MarketsFragment;
-import vn.com.ifs.vpbscustomer.module.stocks.PendingOrdersFragment;
 import vn.com.ifs.vpbscustomer.module.stocks.StocksFragment;
-import vn.com.ifs.vpbscustomer.module.stocks.porfolio.PortfolioFragment;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class MainActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

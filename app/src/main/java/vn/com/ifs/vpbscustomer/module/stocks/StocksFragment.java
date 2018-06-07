@@ -14,12 +14,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import vn.com.ifs.vpbscustomer.R;
 import vn.com.ifs.vpbscustomer.adapter.StocksPagerAdapter;
-import vn.com.ifs.vpbscustomer.fragment.BaseFragment;
+import vn.com.ifs.vpbscustomer.fragment.BaseViewStubFragment;
+import vn.com.ifs.vpbscustomer.module.Presenter;
 
 import static android.graphics.Typeface.BOLD;
 import static android.graphics.Typeface.NORMAL;
 
-public class StocksFragment extends BaseFragment implements ViewPager.OnPageChangeListener, TabLayout.OnTabSelectedListener {
+public class StocksFragment extends BaseViewStubFragment implements ViewPager.OnPageChangeListener, TabLayout.OnTabSelectedListener {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -32,17 +33,8 @@ public class StocksFragment extends BaseFragment implements ViewPager.OnPageChan
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_stocks, container, false);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    protected void onCreateViewAfterViewStubInflated(View inflatedView, Bundle savedInstanceState, boolean hasInflated) {
+        ButterKnife.bind(this, inflatedView);
         pagerAdapter = new StocksPagerAdapter(getChildFragmentManager());
 
         viewPager.setAdapter(pagerAdapter);
@@ -65,6 +57,14 @@ public class StocksFragment extends BaseFragment implements ViewPager.OnPageChan
         }
 
         tabLayout.addOnTabSelectedListener(this);
+
+        if (!hasInflated)
+            new Presenter(this).loadData();
+    }
+
+    @Override
+    protected int getViewStubLayoutResource() {
+        return R.layout.fragment_stocks;
     }
 
     @Override

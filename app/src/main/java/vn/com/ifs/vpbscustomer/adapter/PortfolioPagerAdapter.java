@@ -35,13 +35,13 @@ public class PortfolioPagerAdapter extends FragmentPagerAdapter {
                 // first fragment need to be call api onCreate
                 break;
             case 1:
-                tradingHistoryFragment.callApi();
+//                tradingHistoryFragment.callApi();
                 break;
             case 2:
-                cashStatementFragment.callApi();
+//                cashStatementFragment.callApi();
                 break;
             case 3:
-                stockStatementFragment.callApi();
+//                stockStatementFragment.callApi();
                 break;
             default:
                 break;

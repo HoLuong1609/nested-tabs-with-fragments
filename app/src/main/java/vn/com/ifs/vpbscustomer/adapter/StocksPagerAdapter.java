@@ -35,13 +35,13 @@ public class StocksPagerAdapter extends FragmentPagerAdapter {
                 // first fragment need to be call api onCreate
                 break;
             case 1:
-                pendingOrdersFragment.callApi();
+//                pendingOrdersFragment.callApi();
                 break;
             case 2:
-                extensionsFragment.callApi();
+//                extensionsFragment.callApi();
                 break;
             case 3:
-                marketsFragment.callApi();
+//                marketsFragment.callApi();
                 break;
             default:
                 break;
